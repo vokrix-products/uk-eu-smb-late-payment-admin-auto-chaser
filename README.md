@@ -48,3 +48,7 @@ python3 run_tests.py
 - `run_demo.py` – zero-argument demo with hardcoded CSV
 - `run_tests.py` – unit tests
 - `requirements.txt` – `openai`, `requests`
+
+Dashboard: https://uk-eu-smb-late-payment-admin-auto-chaser.vokrix.co
+Vercel: uk-eu-smb-late-payment-admin-auto-chaser
+Railway: 4d9ed47b-2a0b-4144-bd21-7c68b3f538b5
