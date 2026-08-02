@@ -53,3 +53,4 @@ Dashboard: https://uk-eu-smb-late-payment-admin-auto-chaser.vokrix.co
 Vercel: uk-eu-smb-late-payment-admin-auto-chaser
 Railway: 4d9ed47b-2a0b-4144-bd21-7c68b3f538b5
 Railway: uk-eu-smb-late-payment-admin-auto-chaser
+Cloudflare: uk-eu-smb-late-payment-admin-auto-chaser.vokrix.co
