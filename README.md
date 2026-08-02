@@ -61,3 +61,4 @@ Billing: price_1U02kK2c9uGCcgMSEFFm1lrt
 Landing: https://vokrix.co/uk-eu-smb-late-payment-admin-auto-chaser
 
 Outreach: active
+- Fixed: product record set to status=active in Supabase
