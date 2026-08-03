@@ -9,6 +9,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import { Button } from '../ui/button'
+import { VokrixLogo } from '@/assets/vokrix-logo'
 
 export function AppTitle() {
   const { setOpenMobile } = useSidebar()
@@ -24,8 +25,9 @@ export function AppTitle() {
             <Link
               to='/'
               onClick={() => setOpenMobile(false)}
-              className='grid flex-1 text-start text-sm leading-tight'
+              className='flex flex-1 items-center gap-2 text-start text-sm leading-tight'
             >
+              <VokrixLogo className='h-6 w-6 shrink-0 text-foreground' />
               <span className='truncate font-bold'>{PRODUCT_NAME}</span>
             </Link>
             <ToggleSidebar />
