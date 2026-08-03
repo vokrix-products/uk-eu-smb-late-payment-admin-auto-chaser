@@ -66,7 +66,9 @@ def poll():
         download_from_bucket('uploads', file_path_in_bucket, input_path)
         
         # Run processor
-        records = processor.process(str(input_path), api_key=ANTHROPIC_API_KEY)  # adapt call to your processor signature
+        with open(input_path, "rb") as f:
+            file_bytes = f.read()
+        records = processor.process_file(file_bytes)  # adapt call to your processor signature
         # records is a list of dicts expected keys: product_id, customer_id, title, status, details, source_file_path, due_date
         
         # Insert records into 'records' table
