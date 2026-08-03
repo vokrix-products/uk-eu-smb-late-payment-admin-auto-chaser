@@ -213,7 +213,7 @@ export function JobsCard() {
       )}
     <PaywallModal open={trialLimitReached} onClose={() => setTrialLimitReached(false)} />
     <Card className='relative overflow-hidden'>
-        <BorderBeam size={250} duration={12} colorFrom='#5e6ad2' colorTo='#a78bfa' />
+        <BorderBeam duration={12} colorFrom='#5e6ad2' colorTo='#a78bfa' />
       <CardHeader>
         <CardTitle>
           {SHOW_UPLOAD ? (MULTI_FILE ? 'Upload files' : 'Upload a file') : 'Processing Queue'}
