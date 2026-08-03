@@ -74,7 +74,7 @@ def poll():
         # Insert records into 'records' table
         for rec in records:
             rec['product_id'] = PRODUCT_ID
-            rec.setdefault('customer_id', '')
+            rec['customer_id'] = job.get('customer_id', '')
             rec.setdefault('title', '')
             details = rec.setdefault('details', {})
             rec.setdefault('source_file_path', file_path_in_bucket)
