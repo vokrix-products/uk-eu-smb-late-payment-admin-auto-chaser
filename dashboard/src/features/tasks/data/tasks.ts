@@ -3,6 +3,18 @@ import { supabase, PRODUCT_ID } from '@/lib/supabase'
 import { useAuthStore } from '@/stores/auth-store'
 import { type Task } from './schema'
 
+async function writeAudit(action: string, entity: string, entityId: string, userId: string) {
+  try {
+    await supabase.from('audit_log').insert({
+      product_id: PRODUCT_ID,
+      customer_id: userId,
+      action,
+      entity,
+      entity_id: entityId,
+    })
+  } catch {}
+}
+
 async function fetchTasks(): Promise<Task[]> {
   const { data, error } = await supabase
     .from('records')
@@ -43,10 +55,12 @@ async function deleteTask(id: string): Promise<void> {
 
 export function useDeleteTask() {
   const queryClient = useQueryClient()
+  const user = useAuthStore((state) => state.auth.user)
   return useMutation({
     mutationFn: deleteTask,
-    onSuccess: () => {
+    onSuccess: (_, id) => {
       queryClient.invalidateQueries({ queryKey: ['tasks', PRODUCT_ID] })
+      if (user?.id) void writeAudit('record.deleted', 'record', id, user.id)
     },
   })
 }
@@ -63,10 +77,14 @@ async function deleteTasks(ids: string[]): Promise<void> {
 
 export function useDeleteTasks() {
   const queryClient = useQueryClient()
+  const user = useAuthStore((state) => state.auth.user)
   return useMutation({
     mutationFn: deleteTasks,
-    onSuccess: () => {
+    onSuccess: (_, ids) => {
       queryClient.invalidateQueries({ queryKey: ['tasks', PRODUCT_ID] })
+      if (user?.id) {
+        ids.forEach(id => void writeAudit('record.deleted', 'record', id, user.id))
+      }
     },
   })
 }
