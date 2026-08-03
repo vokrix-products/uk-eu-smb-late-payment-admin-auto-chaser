@@ -3,9 +3,12 @@ let cachedManual = null
 async function fetchProductManual(productId) {
   if (cachedManual) return cachedManual
   try {
+    const intelUrl = process.env.INTEL_SUPABASE_URL
+    const intelKey = process.env.INTEL_SUPABASE_KEY
+    if (!intelUrl || !intelKey) return null
     const r = await fetch(
-      `${process.env.VITE_SUPABASE_URL}/rest/v1/product_manuals?product_id=eq.${productId}&select=manual&limit=1`,
-      { headers: { apikey: process.env.VITE_SUPABASE_ANON_KEY, Authorization: `Bearer ${process.env.VITE_SUPABASE_ANON_KEY}` } }
+      `${intelUrl}/rest/v1/product_manuals?product_id=eq.${productId}&select=manual&limit=1`,
+      { headers: { apikey: intelKey, Authorization: `Bearer ${intelKey}` } }
     )
     const data = await r.json()
     cachedManual = data?.[0]?.manual || null
