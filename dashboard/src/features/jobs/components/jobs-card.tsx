@@ -3,7 +3,7 @@ import { PRODUCT_ARCHETYPE } from '@/product-config'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { RippleButton } from '@/components/ui/ripple-button'
-import { BorderBeam } from '@/components/magicui/border-beam'
+import { ShineBorder } from '@/components/ui/shine-border'
 import { DotPattern } from '@/components/ui/dot-pattern'
 import {
   Card,
@@ -213,7 +213,7 @@ export function JobsCard() {
       )}
     <PaywallModal open={trialLimitReached} onClose={() => setTrialLimitReached(false)} />
     <Card className='relative overflow-hidden'>
-        <BorderBeam duration={12} colorFrom='#5e6ad2' colorTo='#a78bfa' />
+        <ShineBorder shineColor={['#5e6ad2', '#a78bfa', '#5e6ad2']} borderWidth={1} />
       <CardHeader>
         <CardTitle>
           {SHOW_UPLOAD ? (MULTI_FILE ? 'Upload files' : 'Upload a file') : 'Processing Queue'}
