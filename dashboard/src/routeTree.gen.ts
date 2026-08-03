@@ -22,6 +22,7 @@ import { Route as authAuthCallbackRouteImport } from './routes/(auth)/auth-callb
 import { Route as AuthenticatedSettingsRouteRouteImport } from './routes/_authenticated/settings/route'
 import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
 import { Route as AuthenticatedHelpIndexRouteImport } from './routes/_authenticated/help/index'
+import { Route as AuthenticatedAuditIndexRouteImport } from './routes/_authenticated/audit/index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
 import { Route as AuthenticatedSettingsNotificationsRouteImport } from './routes/_authenticated/settings/notifications'
 import { Route as AuthenticatedSettingsDisplayRouteImport } from './routes/_authenticated/settings/display'
@@ -94,6 +95,11 @@ const AuthenticatedHelpIndexRoute = AuthenticatedHelpIndexRouteImport.update({
   path: '/help/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAuditIndexRoute = AuthenticatedAuditIndexRouteImport.update({
+  id: '/audit/',
+  path: '/audit/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedSettingsIndexRoute =
   AuthenticatedSettingsIndexRouteImport.update({
     id: '/',
@@ -150,6 +156,7 @@ export interface FileRoutesByFullPath {
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/tasks/': typeof AuthenticatedTasksIndexRoute
   '/help/': typeof AuthenticatedHelpIndexRoute
+  '/audit/': typeof AuthenticatedAuditIndexRoute
 }
 export interface FileRoutesByTo {
   '/auth-callback': typeof authAuthCallbackRoute
@@ -169,6 +176,7 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/help': typeof AuthenticatedHelpIndexRoute
+  '/audit': typeof AuthenticatedAuditIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -191,6 +199,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/help/': typeof AuthenticatedHelpIndexRoute
+  '/_authenticated/audit/': typeof AuthenticatedAuditIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -232,6 +241,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tasks'
     | '/help'
+    | '/audit'
   id:
     | '__root__'
     | '/_authenticated'
@@ -253,6 +263,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
     | '/_authenticated/help/'
+    | '/_authenticated/audit/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -434,6 +445,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedHelpIndexRoute: typeof AuthenticatedHelpIndexRoute
+  AuthenticatedAuditIndexRoute: typeof AuthenticatedAuditIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -442,6 +454,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedHelpIndexRoute: AuthenticatedHelpIndexRoute,
+  AuthenticatedAuditIndexRoute: AuthenticatedAuditIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
