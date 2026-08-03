@@ -41,6 +41,14 @@ export function useJobs() {
 // multiple distinct upload types (rare) can pass a different value.
 const TRIAL_LIMIT = 3
 
+export function useTrialUsage() {
+  const user = useAuthStore((state) => state.auth.user)
+  const isPaid = !!user?.app_metadata?.product_id
+  const { data: jobs } = useJobs()
+  const used = jobs?.filter(j => ['pending','processing','completed'].includes(j.status)).length ?? 0
+  return { used, limit: TRIAL_LIMIT, isPaid }
+}
+
 async function getRecordCount(userId: string): Promise<number> {
   const { count, error } = await supabase
     .from('jobs')
