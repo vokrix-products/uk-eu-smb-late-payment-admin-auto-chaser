@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { DataTableFacetedFilter } from './faceted-filter'
 import { DataTableViewOptions } from './view-options'
+import { ShimmerButton } from '@/components/magicui/shimmer-button'
+import { Download } from 'lucide-react'
 
 type DataTableToolbarProps<TData> = {
   table: Table<TData>
@@ -18,6 +20,30 @@ type DataTableToolbarProps<TData> = {
       icon?: React.ComponentType<{ className?: string }>
     }[]
   }[]
+}
+
+function exportToCSV<TData>(table: Table<TData>) {
+  const rows = table.getFilteredRowModel().rows
+  if (rows.length === 0) return
+  const cols = table.getAllColumns().filter(c => c.getIsVisible() && c.id !== 'select' && c.id !== 'actions')
+  const headers = cols.map(c => c.id)
+  const csvRows = [
+    headers.join(','),
+    ...rows.map(row =>
+      cols.map(col => {
+        const val = row.getValue(col.id)
+        const str = val == null ? '' : String(val)
+        return str.includes(',') || str.includes('"') ? `"${str.replace(/"/g, '""')}"` : str
+      }).join(',')
+    )
+  ]
+  const blob = new Blob([csvRows.join('\n')], { type: 'text/csv' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = 'export.csv'
+  a.click()
+  URL.revokeObjectURL(url)
 }
 
 export function DataTableToolbar<TData>({
@@ -79,7 +105,18 @@ export function DataTableToolbar<TData>({
           </Button>
         )}
       </div>
-      <DataTableViewOptions table={table} />
+      <div className='flex items-center gap-2'>
+        <ShimmerButton
+          shimmerColor='#5e6ad2'
+          background='rgba(94,106,210,0.08)'
+          className='h-8 px-3 text-xs border border-[#5e6ad2]/30 text-foreground'
+          onClick={() => exportToCSV(table)}
+        >
+          <Download className='mr-1.5 h-3.5 w-3.5' />
+          Export CSV
+        </ShimmerButton>
+        <DataTableViewOptions table={table} />
+      </div>
     </div>
   )
 }
