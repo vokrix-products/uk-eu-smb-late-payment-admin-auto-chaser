@@ -12,6 +12,7 @@ import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { JobsCard } from '@/features/jobs/components/jobs-card'
+import { NotificationsBell } from '@/components/notifications-bell'
 import { PRODUCT_ARCHETYPE } from '@/product-config'
 import { ReportCard } from './components/report-card'
 import { Overview } from './components/overview'
@@ -60,6 +61,7 @@ export function Dashboard() {
       <Header>
         <Search />
         <ThemeSwitch />
+        <NotificationsBell />
         <ProfileDropdown />
       </Header>
 
