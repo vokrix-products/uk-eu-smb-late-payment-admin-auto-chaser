@@ -22,9 +22,11 @@ import {
 import {
   useJobs,
   useUploadJob,
+  useTrialUsage,
   downloadJobResult,
   type Job,
 } from '../data/jobs'
+import { AnimatedCircularProgressBar } from '@/components/magicui/animated-circular-progress-bar'
 
 const BILLING_WEBHOOK_URL = 'https://web-production-6adc6.up.railway.app'
 const PRICE_ID = (import.meta.env.VITE_STRIPE_PRICE_ID as string) ?? ''
@@ -176,6 +178,9 @@ export function JobsCard() {
     if (MULTI_FILE) uploadFiles(files)
     else if (files[0]) uploadFile(files[0])
   }
+  const { used, limit, isPaid } = useTrialUsage()
+  const pct = Math.round((used / limit) * 100)
+  const primaryColor = pct >= 100 ? '#ef4444' : pct >= 66 ? '#f59e0b' : '#5e6ad2'
   const { data: jobs, isLoading } = useJobs()
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -222,6 +227,29 @@ export function JobsCard() {
         )}
       </CardHeader>
       <CardContent className='space-y-4'>
+        {SHOW_UPLOAD && !isPaid && (
+          <div className='flex items-center gap-4 rounded-lg border border-border bg-muted/30 px-4 py-3'>
+            <AnimatedCircularProgressBar
+              max={limit}
+              min={0}
+              value={used}
+              gaugePrimaryColor={primaryColor}
+              gaugeSecondaryColor='rgba(255,255,255,0.1)'
+              className='size-16 text-sm'
+            />
+            <div className='flex-1 min-w-0'>
+              <p className='text-sm font-medium'>{used} of {limit} free uploads used</p>
+              <p className='text-xs text-muted-foreground mt-0.5'>
+                {used >= limit ? 'Upgrade to continue uploading' : `${limit - used} remaining on free plan`}
+              </p>
+            </div>
+            {used >= limit && (
+              <button onClick={openCheckout} className='shrink-0 text-xs font-medium text-primary hover:underline'>
+                Upgrade
+              </button>
+            )}
+          </div>
+        )}
         {SHOW_UPLOAD && (
           <div
             className='relative flex flex-col items-center justify-center gap-3 rounded-lg border border-dashed p-8 text-center overflow-hidden'
