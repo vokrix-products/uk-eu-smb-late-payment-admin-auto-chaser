@@ -62,3 +62,4 @@ Landing: https://vokrix.co/uk-eu-smb-late-payment-admin-auto-chaser
 
 Outreach: active
 - Fixed: product record set to status=active in Supabase
+# redeployed Mon Aug  3 15:07:34 CEST 2026
