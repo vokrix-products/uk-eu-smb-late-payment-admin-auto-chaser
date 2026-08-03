@@ -6,7 +6,6 @@ import { DataTableFacetedFilter } from './faceted-filter'
 import { DataTableViewOptions } from './view-options'
 import { ShimmerButton } from '@/components/magicui/shimmer-button'
 import { supabase, PRODUCT_ID } from '@/lib/supabase'
-import { useAuthStore } from '@/stores/auth-store'
 import { Download } from 'lucide-react'
 
 type DataTableToolbarProps<TData> = {
