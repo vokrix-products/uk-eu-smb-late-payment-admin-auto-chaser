@@ -1,6 +1,5 @@
 import { useAuthStore } from '@/stores/auth-store'
 import { useLayout } from '@/context/layout-provider'
-import { Link } from '@tanstack/react-router'
 import { BookOpen, ClipboardList } from 'lucide-react'
 import {
   Sidebar,
@@ -34,18 +33,18 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link to="/audit">
+              <a href="/audit/">
                 <ClipboardList className="h-4 w-4" />
                 <span>Audit Log</span>
-              </Link>
+              </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link to="/help">
+              <a href="/help/">
                 <BookOpen className="h-4 w-4" />
                 <span>Help</span>
-              </Link>
+              </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
