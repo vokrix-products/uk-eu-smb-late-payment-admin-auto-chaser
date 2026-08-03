@@ -25,13 +25,13 @@ export const Route = createFileRoute('/_authenticated')({
     const auditKey = `audit_session_${data.session.user.id}`
     if (!sessionStorage.getItem(auditKey)) {
       sessionStorage.setItem(auditKey, '1')
-      supabase.from('audit_log').insert({
+      void supabase.from('audit_log').insert({
         product_id: import.meta.env.VITE_PRODUCT_ID,
         customer_id: data.session.user.id,
         action: 'session.started',
         entity: 'auth',
         entity_id: data.session.user.id,
-      }).then(() => {}).catch(() => {})
+      })
     }
     // Fire welcome email once per user (magic link confirmation)
     const welcomeKey = `welcome_sent_${data.session.user.email}`
