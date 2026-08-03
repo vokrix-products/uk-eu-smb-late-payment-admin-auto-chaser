@@ -5,6 +5,8 @@ import { Input } from '@/components/ui/input'
 import { DataTableFacetedFilter } from './faceted-filter'
 import { DataTableViewOptions } from './view-options'
 import { ShimmerButton } from '@/components/magicui/shimmer-button'
+import { supabase, PRODUCT_ID } from '@/lib/supabase'
+import { useAuthStore } from '@/stores/auth-store'
 import { Download } from 'lucide-react'
 
 type DataTableToolbarProps<TData> = {
@@ -22,7 +24,7 @@ type DataTableToolbarProps<TData> = {
   }[]
 }
 
-function exportToCSV<TData>(table: Table<TData>) {
+async function exportToCSV<TData>(table: Table<TData>) {
   const rows = table.getFilteredRowModel().rows
   if (rows.length === 0) return
   const cols = table.getAllColumns().filter(c => c.getIsVisible() && c.id !== 'select' && c.id !== 'actions')
@@ -37,6 +39,11 @@ function exportToCSV<TData>(table: Table<TData>) {
       }).join(',')
     )
   ]
+  // Audit log
+  try {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user) void supabase.from('audit_log').insert({ product_id: PRODUCT_ID, customer_id: user.id, action: 'export.csv', entity: 'records', entity_id: String(rows.length) })
+  } catch {}
   const blob = new Blob([csvRows.join('\n')], { type: 'text/csv' })
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
