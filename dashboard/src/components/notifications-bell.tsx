@@ -6,7 +6,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { Badge } from '@/components/ui/badge'
 import { supabase, PRODUCT_ID } from '@/lib/supabase'
 import { useAuthStore } from '@/stores/auth-store'
 
