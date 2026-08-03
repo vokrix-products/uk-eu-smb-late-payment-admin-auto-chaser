@@ -3,6 +3,18 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAuthStore } from '@/stores/auth-store'
 import { supabase, PRODUCT_ID } from '@/lib/supabase'
 
+async function writeAudit(action: string, entity: string, entityId: string, userId: string) {
+  try {
+    await supabase.from('audit_log').insert({
+      product_id: PRODUCT_ID,
+      customer_id: userId,
+      action,
+      entity,
+      entity_id: entityId,
+    })
+  } catch {}
+}
+
 export interface Job {
   id: string
   job_type: string
@@ -110,6 +122,9 @@ export function useUploadJob() {
       if (insertError) throw insertError
 
       queryClient.invalidateQueries({ queryKey: ['jobs', PRODUCT_ID] })
+      if (user?.id && data?.[0]?.id) {
+        void writeAudit('job.created', 'job', data[0].id, user.id)
+      }
       return jobData
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Upload failed')
