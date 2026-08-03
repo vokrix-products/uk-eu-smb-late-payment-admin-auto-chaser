@@ -1,6 +1,6 @@
 import { useAuthStore } from '@/stores/auth-store'
 import { useLayout } from '@/context/layout-provider'
-import { BookOpen, ClipboardList } from 'lucide-react'
+import { BookOpen, ClipboardList, LifeBuoy } from 'lucide-react'
 import {
   Sidebar,
   SidebarContent,
@@ -31,6 +31,14 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <a href="/tickets/">
+                <LifeBuoy className="h-4 w-4" />
+                <span>Support</span>
+              </a>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <a href="/audit/">
