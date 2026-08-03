@@ -15,6 +15,11 @@ export const sidebarData: SidebarData = {
         ...(SHOW_TASKS_NAV
           ? [{ title: TASKS_NAV_LABEL, url: '/tasks', icon: TASKS_NAV_ICON }]
           : []),
+      ],
+    },
+    {
+      title: 'Support',
+      items: [
         {
           title: 'Help',
           url: '/help',
