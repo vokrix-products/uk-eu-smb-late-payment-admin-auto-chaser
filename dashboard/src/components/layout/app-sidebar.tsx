@@ -34,7 +34,7 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link to="/audit">
+              <Link to="/audit/">
                 <ClipboardList className="h-4 w-4" />
                 <span>Audit Log</span>
               </Link>
@@ -42,7 +42,7 @@ export function AppSidebar() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link to="/help">
+              <Link to="/help/">
                 <BookOpen className="h-4 w-4" />
                 <span>Help</span>
               </Link>
