@@ -76,9 +76,13 @@ def poll():
             rec['product_id'] = PRODUCT_ID
             rec.setdefault('customer_id', '')
             rec.setdefault('title', '')
-            rec.setdefault('details', {})
+            details = rec.setdefault('details', {})
             rec.setdefault('source_file_path', file_path_in_bucket)
-            rec.setdefault('due_date', None)
+            # Extract due_date from details if not top-level
+            if 'due_date' not in rec or rec['due_date'] is None:
+                rec['due_date'] = details.pop('due_date', None)
+            else:
+                details.pop('due_date', None)
             supabase_rest('records', method='POST', json=rec)
         
         # Generate result summary
