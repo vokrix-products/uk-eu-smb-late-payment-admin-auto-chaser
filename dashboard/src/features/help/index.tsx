@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Header } from '@/components/layout/header'
+import { NotificationsBell } from '@/components/notifications-bell'
 import { Main } from '@/components/layout/main'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
@@ -113,6 +114,7 @@ export function Help() {
       <Header>
         <Search />
         <ThemeSwitch />
+        <NotificationsBell />
         <ProfileDropdown />
       </Header>
       <Main>
