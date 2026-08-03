@@ -122,8 +122,8 @@ export function useUploadJob() {
       if (insertError) throw insertError
 
       queryClient.invalidateQueries({ queryKey: ['jobs', PRODUCT_ID] })
-      if (user?.id && inserted?.[0]?.id) {
-        void writeAudit('job.created', 'job', String(inserted[0].id), user.id)
+      if (user?.id && jobData?.id) {
+        void writeAudit('job.created', 'job', String(jobData.id), user.id)
       }
       return jobData
     } catch (err) {
